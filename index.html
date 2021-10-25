@@ -42,7 +42,7 @@
         font-size: 14px;
         font-family: 'HSYuji-Regular';
         line-height: 20px;
-        margin-top: 400px;
+        margin-top: 25px;
         cursor: pointer;
         transition: 0.3s;
       }
@@ -86,6 +86,85 @@ button:hover{
 
       .btns.bgshow{background-color: rgb(216, 138, 138);}
 
+      .arrow-up{
+        position: fixed;
+        bottom: 50%;
+        right: 50px;
+        width: 70px;
+        height: 70px;
+        color: white;
+        background-color: rebeccapurple;
+        border-radius: 50%;
+        text-align: center;
+        opacity: 0;
+      }
+
+      .arrow-up span{
+        line-height: 70px;
+        font-size: 50px;
+      }
+
+      .arrow-up.visible{
+        opacity: 1;
+      }
+
+      .button{ 
+            margin: 0;
+            width: 200px;
+            height: 50px;
+            background-color: rgb(25, 41, 46);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 14px;
+            font-family: '나눔고딕';
+            line-height: 20px;
+        }
+
+        #go-top {
+            display: none;
+            position: fixed;
+            right: 30px;
+            bottom: 50px;
+            outline: 0;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            z-index: 9999;
+            color: white /* 색상변경*/
+        }
+
+        section{
+          width: 100%;
+        }
+        .wrapper{
+          max-width: 1200px;
+          margin: auto;
+        }
+
+        #home{
+          padding-top: 88px;
+          text-align: center;
+        }
+
+        section{
+          text-align: center;
+        }
+
+        h1{
+          color: skyblue;
+          font-size: 48px;
+        }
+
+        h2{
+          font-size: 32px;
+        }
+
+        h3{
+          font-size: 24px;
+          font-weight: 300;
+        }
+
     </style>
   </head>
 
@@ -96,14 +175,41 @@ button:hover{
     <button class="btn--reset">배경색상 reset</button>
     <button class="btn--bggray">배경색상변경 Gray</button>
     <button class="btn--bgimg">배경이미지 background</button>
+    <button class="arrow-up">
+      <span class="material-icons">
+        arrow_upward
+      </span>
+
+    </button>
+
   </div>
-  
+  <button id="go-top" style="display: block;"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"></path>
+</svg></button>
+
+  <selection id="home">
+    <div class="wrapper">
+      <h1>Home</h1>
+      <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente, tempore.</h2>
+      <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente, tempore.</h2>
+    </div>
+  </selection>
+  <selection id="Skill">
+    <div class="wrapper">
+      <h1>Home</h1>
+      <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente, tempore.</h2>
+      <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente, tempore.</h2>
+    </div>
+  </selection>
+
   <script>
+    const bgContainer = document.querySelector('.bg__img')
     const btnToggle = document.querySelector('.btn_toggle');
     // addEventListener('이벤트', 실행함수);
     btnToggle.addEventListener('click', function () {
       document.body.classList.toggle('bgcolor--blue');
       bgContainer.classList.remove('bg__img--show');
+      home.scrollIntoView({behavior"smooth"});
       // console.log('버튼클릭');
     });
     const btnReset = document.querySelector('.btn--reset');
@@ -117,6 +223,7 @@ button:hover{
       // document.body.classList.remove('bg--img');
       bgContainer.classList.remove('bg__img--show');
       document.body.classList.add('bgcolor--gray');
+      skill.scrollIntoView({behavior:"smooth", block:"center"})
     });
     const bgContainer = document.querySelector('.bg__img');
     const btnBgImg = document.querySelector('.btn--bgimg');
@@ -136,10 +243,41 @@ button:hover{
 
       })
 
+      const arrowUp =document.querySelector('.arrow-up');
+      document.addEventListener('scroll',function(){
+        if (window.scrollY > 500){
+          arrowUp.classList.add('visible');
+        } else{
+          arrowUp.classList.remove('visible');
+        }
+      })
 
+      const home = document.querySelector('#home');
+      arrowUp.addEventListener('click', function () {
+        home.scrollIntoView({behavior:"smooth"});
+      });
 
+      var backToTop = () => {
+        // Scroll | button show/hide
+        window.addEventListener('scroll', () => {
+            if (document.querySelector('html').scrollTop > 500) {
+            document.getElementById('go-top').style.display = "block";
+        } else {
+            document.getElementById('go-top').style.display = "none";
+        }
+        });
+        // back to top
+        document.getElementById('go-top').addEventListener('click', () => {
+            window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+            });
+        })
+        };
   </script>
   
 
+  
 </body>
 </html>
